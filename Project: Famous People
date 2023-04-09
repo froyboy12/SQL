@@ -49,5 +49,5 @@ SELECT fullname, round(AVG(age),0) AS Age, job
 FROM people
 GROUP BY job
 HAVING age > 30 AND age < 60
-GROUP BY age;
+ORDER BY age;
 
