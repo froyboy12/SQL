@@ -1,0 +1,93 @@
+--Show Customers (their full names, customer ID, and country) who are not in the US. (Hint: != or <> can be used to say "is not equal to")--
+SELECT customerid
+,firstname
+,lastname
+,country
+FROM customers
+WHERE country != 'Brazil';
+
+--Show only the customers from Brazil?--
+SELECT *
+FROM customers
+WHERE country = 'Brazil';
+
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country--
+SELECT 
+ c.Firstname
+,c.Lastname
+,i.InvoiceID
+,i.invoiceDate
+,i.BillingCountry
+FROM customers c, invoices i
+WHERE c.country = 'Brazil' AND c.CustomerId = i.CustomerId;
+
+--Calculating the Age of Employee--
+SELECT
+  Lastname
+ ,Firstname
+ ,Birthdate
+ ,strftime('%Y-%m-%d', Birthdate) AS [Birthdate No Timecode]
+ ,strftime('%Y-%m-%d','now') - strftime('%Y-%m-%d', Birthdate) AS Age
+ FROM
+ Employees;
+
+--Show the employees who are sale agents ?--
+SELECT * 
+FROM employees
+WHERE employees.title = 'Sales Support Agent';
+
+--Limit the results to only the album tracks that are longer than 600,000 milliseconds.--
+--The list should be sorted in ascending order by artist name, then ascending by album title, then ascending by track name--.
+SELECT *
+FROM tracks
+WHERE Milliseconds > 600000
+ORDER BY name ASC
+,albumID ASC
+,trackID ASC;
+
+--Write the needed SQL to produce a list that contains ONLY the following columns: artist name, album title, and track name.
+SELECT
+ t.name AS NAME
+,ar.name AS ARTIST 
+,al.title AS SONG_TITLE
+,t.trackid AS TRACK
+FROM Tracks t
+INNER JOIN albums al
+ON t.albumid = al.albumid
+INNER JOIN artists as ar
+ON ar.artistid = al.artistid
+LIMIT 12
+;
+
+--Find the name and ID of the artists who do not have albums.
+
+SELECT Name AS Artist
+,Artists.ArtistId
+,Albums.Title AS Album
+FROM Artists
+LEFT JOIN Albums
+ON Artists.ArtistId = Albums.ArtistId
+WHERE Album IS NULL
+ORDER BY Artist ASC;
+
+
+--Retrieve a list with the managers last name, and the last name of the employees who report to him or her--
+SELECT M.LastName,E.LastName
+FROM Employees E
+INNER JOIN Employees M
+ON E.ReportsTo=M.EmployeeId;
+
+--How many Invoices were there in 2009?--
+SELECT COUNT(*)
+FROM invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+--Show the total sales made by each sales agent?--
+SELECT emp.FirstName,emp.LastName,ROUND(SUM(Inv.Total)) AS 'Total Sales'
+FROM Employees emp
+JOIN Customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+JOIN Invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+WHERE emp.Title = 'Sales Support Agent' 
+GROUP BY emp.FirstName;
