@@ -27,6 +27,8 @@ ORDER BY price DESC;
 SELECT UPPER(designer) AS Designer, round(AVG(price),2 ) "Avg  Clothes Price" 
 FROM ClothingStore
 GROUP BY designer
+HAVING price > 40.00
+ORDER BY price 
 
 --What are the 5 most expensive items ?
 SELECT designer, price
