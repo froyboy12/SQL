@@ -1,4 +1,4 @@
-#This analysis utilized the following Fortune 500 dataset:
+# This analysis utilized the following Fortune 500 dataset:
 # These SQL queries combine complex data analysis techniques, including subqueries, joins, filtering, and aggregation, to extract insights from a diverse dataset of fortune companies.
 CREATE TABLE fortune_companies (
     company_id INTEGER PRIMARY KEY,
