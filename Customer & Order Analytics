@@ -137,3 +137,4 @@ sum(quantity)*price as revenue,
 sum(quantity*price) as revenue2
 FROM BIT_DB.JanSales
 GROUP BY product;
+
